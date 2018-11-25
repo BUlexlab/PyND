@@ -1,0 +1,1 @@
+python.exe calc_nd.py -allowedmisses 3 -allowedmatches 10 -outputdir "~\naomi" -outputname "three_miss_Code" "..\Downloads\signdata (33).csv" "SignType 2.0" "MinorLocation 2.0" "SecondMinorLocation" "Movement 2.0" "Contact" "SelectedFingers 2.0" "Flexion 2.0" "FlexionChange" "Spread" "SpreadChange"
