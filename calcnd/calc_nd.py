@@ -16,7 +16,10 @@ logger.handlers = []
 logger.addHandler(ch)
 
 
-def main(input: ('path to the input .csv file', 'positional'),
+def main(features: ('a character vector containing the column names'
+                     + ' in "data" over which to calculate neighborhood'
+                    + ' densities', 'positional'),
+         input: ('path to the input .csv file', 'positional'),
          outputdir: ('directory into which to place results files',
                      'option') = "~/Documents",
          outputname: ('base name for results .csv files; files will be named'
@@ -35,10 +38,8 @@ def main(input: ('path to the input .csv file', 'positional'),
                         'flag') = False,
          sample: ('if supplied, length of a random subsample of the input dataframe'
                   + ' (to speed things up for testing purposes)', 'option',
-                  None, int) = None,
-         *features: ('a character vector containing the column names'
-                     + ' in "data" over which to calculate neighborhood'
-                     + ' densities', 'positional')
+                  None, int) = None
+         
          ):
     features = list(features)
     if not allowedmatches:
