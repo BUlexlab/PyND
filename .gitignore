@@ -1,0 +1,9 @@
+tests/test_output/
+output/
+__pycache__/
+calcnd.egg-info/
+
+# emacs
+*~
+\#*\#
+.\#*
