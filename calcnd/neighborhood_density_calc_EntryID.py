@@ -41,12 +41,14 @@ def MinimalPairND(data, features, allowed_misses=0, allowed_matches=None,
 
     Returns:
         dict containing elements:
-        data (pandas.DataFrame): the unchanged input dataframe
-        nd (list of int): the computed neighborhood density for each
-            row in the input dataframe
+        nd (pandas.DataFrame: the input DataFrame with an additional column,
+            'Neighborhood Density', the computed neighborhood density
+            for each row in the input dataframe
+
         neighbors (pandas.DataFrame): a data.frame containing the found
             neighbors (data frame has four columns, "target", "neighbor",
             "num.matched.features", and "matched.features")
+
     """
     start_time = time.monotonic()
     if allowed_misses > len(features)-1 or allowed_misses < 0:
@@ -71,11 +73,12 @@ def MinimalPairND(data, features, allowed_misses=0, allowed_matches=None,
 
     logger.debug("features: %s " % features)
 
-    nd = [None] * len(data.index)
     nbr_target = []
     nbr_neighbor = []
     nbr_num_match_features = []
     nbr_match_features = []
+    out_df = data.copy()
+    out_df['Neighborhood Density'] = 0
 
     # outer loop will be stepping through words (source word)
     it_start_time = time.monotonic()
@@ -129,8 +132,8 @@ def MinimalPairND(data, features, allowed_misses=0, allowed_matches=None,
                 # equal or exceed (len(features) - allowed_misses),
                 # put the candidate word into the list of neighbors
                 for k in range(0, len(features)):
-                    if (data.iloc[i, data.columns.get_loc(features[k])] and
-                            data.iloc[j, data.columns.get_loc(features[k])]):
+                    if (pd.notna(data.iloc[i, data.columns.get_loc(features[k])]) and
+                        pd.notna(data.iloc[j, data.columns.get_loc(features[k])])):
                         if (data.iloc[i, data.columns.get_loc(features[k])] ==
                                 data.iloc[j, data.columns.get_loc(features[k])]):
                             msg = "Matched {source} to {target} on feature {feature}"
@@ -151,9 +154,11 @@ def MinimalPairND(data, features, allowed_misses=0, allowed_matches=None,
                     nbr_neighbor.append(data.iloc[j, data.columns.get_loc("EntryID")])
                     nbr_num_match_features.append(matches)
                     nbr_match_features.append(matched_features)
-                    num_neighbors = num_neighbors + 1
+                    logger.debug("incrementing neighborhood density"
+                                 + "for both members of the pair")
+                    out_df.iloc[i, out_df.columns.get_loc("Neighborhood Density")] += 1
+                    out_df.iloc[j, out_df.columns.get_loc("Neighborhood Density")] += 1
         # back to i loop
-        nd[i] = num_neighbors
     data_dict = {'target': nbr_target,
                  'neighbor': nbr_neighbor,
                  'num_matched_features': nbr_num_match_features,
@@ -172,8 +177,7 @@ def MinimalPairND(data, features, allowed_misses=0, allowed_matches=None,
         neighbors = mirrorNeighbors(neighbors)
         logger.info("...done.")
 
-    return({'data': data,
-            'nd': nd,
+    return({'nd': out_df,
             'neighbors': neighbors})
 
 

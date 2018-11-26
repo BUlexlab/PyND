@@ -63,11 +63,8 @@ def main(features: ('a character vector containing the column names'
     result['neighbors'].to_csv(neighbor_out_path, na_rep='NA', index=False)
     logger.info("Wrote file %s" % neighbor_out_path)
 
-    nd = result['data']
-    nd['Neighborhood Density'] = result['nd']
-
     nd_out_path = os.path.join(outputdir, outputname + "-nd.csv")
-    nd.to_csv(nd_out_path, na_rep='NA', index=False)
+    result['nd'].to_csv(nd_out_path, na_rep='NA', index=False)
     logger.info("wrote file %s" % nd_out_path)
 
     return(None)
