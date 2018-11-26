@@ -1,26 +1,21 @@
-import pandas as pd
 import os
-import importlib
+
+import calc_nd as cnd
 
 
-import neighborhood_density_calc as ndc
-importlib.reload(ndc)
-
-input_dir = "~/Downloads"
-a = pd.read_csv(os.path.join(input_dir, "signdata (28).csv"))
-a = a.sample(n=500)
-result = ndc.MinimalPairND(a,
-                           ["SignType 2.0", "MinorLocation 2.0", "SecondMinorLocation",
-                            "Movement 2.0", "Contact", "SelectedFingers 2.0",
-                            "Flexion 2.0", "FlexionChange", "Spread", "SpreadChange"],
-                           allowed_misses=9, allowed_matches=10, mirror_neighbors=True)
-
-# with pd.option_context("display.max_columns", 6):
-#     print(result['neighbors'])
+THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 
 
-# with pd.option_context("display.max_columns", 6):
-#     print(result['neighbors'].loc[lambda df: (df.target == '1_dollar') |
-#                                   (df.neighbor == '1_dollar'), :])
+input = os.path.join(THIS_DIR, "..", "data", "signdata (33).csv")
+outputdir = "~/naomi/output"
+allowed_misses = 3
+allowed_matches = 10
+mirror_neighbors = True
 
-pd.set_option('display.max_columns', None)
+features = ["SignType 2.0", "MinorLocation 2.0", "SecondMinorLocation",
+            "Movement 2.0", "Contact", "SelectedFingers 2.0",
+            "Flexion 2.0", "FlexionChange", "Spread", "SpreadChange"]
+
+cnd.main(input=input, outputdir=outputdir, allowedmisses=allowed_misses,
+         allowedmatches=allowed_matches, deduplicated=not mirror_neighbors,
+         features=features)
