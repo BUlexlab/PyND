@@ -1,0 +1,15 @@
+EntryID,Code,feature-01,feature-02,feature-03,feature-04,feature-05,feature-06,feature-07,feature-08,feature-09,feature-10,Neighborhood Density
+sign-1,code-1,NA,a,a,a,a,a,a,a,a,a,1
+sign-2,code-2,NA,a,a,a,a,a,a,a,a,a,1
+sign-3,code-3,NA,b,b,b,b,b,b,b,b,a,1
+sign-4,code-4,NA,c,b,b,b,b,b,b,b,a,1
+sign-5,code-5,NA,d,c,c,c,c,c,c,c,a,1
+sign-6,code-6,NA,e,d,c,c,c,c,c,c,a,1
+sign-7,code-7,NA,f,e,d,d,d,d,d,d,a,1
+sign-8,code-8,h,g,f,e,d,d,d,d,d,a,1
+sign-9,code-9,h,h,g,f,e,e,e,e,e,a,0
+sign-10,code-10,i,i,h,g,f,e,e,e,e,a,0
+sign-11,code-11,i,j,i,h,g,f,f,f,f,b,0
+sign-12,code-12,i,k,j,i,h,g,f,f,f,c,0
+sign-13,code-13,j,l,k,j,i,h,g,g,g,d,0
+sign-14,code-14,k,m,l,k,j,i,h,g,h,e,0
