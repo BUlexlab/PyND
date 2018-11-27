@@ -8,7 +8,7 @@ THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 
 input = os.path.join(THIS_DIR, "..", "data", "signdata (33).csv")
 outputdir = "~/naomi/output"
-allowed_misses = 0
+allowed_misses = 1
 allowed_matches = None
 mirror_neighbors = True
 
