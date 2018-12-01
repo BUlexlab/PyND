@@ -131,10 +131,9 @@ class Neighbors(object):
         minutes, seconds = divmod(remainder, 60)
         return("{:.0f}:{:02.0f}:{:05.2f}".format(hours, minutes, seconds))
 
-
     def _Compute(self):
         """compute neighborhood density
-        
+
         Returns:
           (DataFrame): database of items with additional column for computed
             neighborhood density
@@ -168,7 +167,7 @@ class Neighbors(object):
                 etc = (len(self.data.index)-i) * 1/rate
                 logger.debug("i: %s etc: %s" % (i, etc))
                 logger.debug("self._FormatHMS(etc): %s" % self._FormatHMS(etc))
-                
+
                 msg2 = (".. {complete:.1%} complete, {rate:.2f} words/sec."
                         + " Est. {etc}"
                         + " (H:MM:SS.ms) remaining.")
@@ -193,10 +192,11 @@ class Neighbors(object):
                     # put the candidate word into the list of neighbors
                     for k in range(0, len(self.features)):
                         if self._MatchFeature(i, j, self.features[k]):
+                            source = self.data.iloc[i, self.data.columns.get_loc("Code")],
+                            target = self.data.iloc[j, self.data.columns.get_loc("Code")],
+                            feature = self.features[k]
                             msg = "Matched {source} to {target} on feature {feature}"
-                            msg = msg.format(source=self.data.iloc[i, self.data.columns.get_loc("Code")],
-                                             target=self.data.iloc[j, self.data.columns.get_loc("Code")],
-                                             feature=self.features[k])
+                            msg = msg.format(source=source, target=target, feature=feature)
                             logger.debug(msg)
                             matches = matches + 1
                             if matched_features == "":
@@ -204,23 +204,7 @@ class Neighbors(object):
                             else:
                                 matched_features = ", ".join([matched_features,
                                                               self.features[k]])
-                            
 
-                        # if (pd.notna(self.data.iloc[i, self.data.columns.get_loc(self.features[k])]) and
-                        #         pd.notna(self.data.iloc[j, self.data.columns.get_loc(self.features[k])])):
-                        #     if (self.data.iloc[i, self.data.columns.get_loc(self.features[k])] ==
-                        #             self.data.iloc[j, self.data.columns.get_loc(self.features[k])]):
-                        #         msg = "Matched {source} to {target} on feature {feature}"
-                        #         msg = msg.format(source=self.data.iloc[i, self.data.columns.get_loc("Code")],
-                        #                          target=self.data.iloc[j, self.data.columns.get_loc("Code")],
-                        #                          feature=self.features[k])
-                        #         logger.debug(msg)
-                        #         matches = matches + 1
-                        #         if matched_features == "":
-                        #             matched_features = self.features[k]
-                        #         else:
-                        #             matched_features = ", ".join([matched_features,
-                        #                                           self.features[k]])
                     if (matches >= (len(self.features) - self.allowed_misses) and
                             matches <= self.allowed_matches):
                         logger.debug("adding match to neighbors")
@@ -232,8 +216,7 @@ class Neighbors(object):
                                      + "for both members of the pair")
                         nd[i] += 1
                         nd[j] += 1
-                        # out_df.iloc[i, out_df.columns.get_loc("Neighborhood Density")] += 1
-                        # out_df.iloc[j, out_df.columns.get_loc("Neighborhood Density")] += 1
+
             # back to i loop
         data_dict = {'target': nbr_target,
                      'neighbor': nbr_neighbor,
@@ -242,10 +225,10 @@ class Neighbors(object):
 
         neighbors = pd.DataFrame(data_dict)
         elapsed_time = time.monotonic() - start_time
-        msg = "completed {words} words in {et} (H:MM:SS.ms) ({rate:.2f} word/sec)".format(
-            words=len(self.data.index),
-            et=self._FormatHMS(elapsed_time),
-            rate=len(self.data.index)/elapsed_time)
+        msg = "completed {words} words in {et} (H:MM:SS.ms) ({rate:.2f} word/sec)"
+        msg = msg.format(words=len(self.data.index),
+                         et=self._FormatHMS(elapsed_time),
+                         rate=len(self.data.index)/elapsed_time)
         logger.info(msg)
 
         out_df['Neighborhood Density'] = nd
