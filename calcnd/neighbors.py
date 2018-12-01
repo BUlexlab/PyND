@@ -65,6 +65,26 @@ class Neighbors(object):
 
         self.nd, self.neighbors = self._Compute()
 
+    @property
+    def Neighbors(self, mirror_neighbors=True):
+        """accessor for neighbors DataFrame
+        
+        """
+        if mirror_neighbors:
+            return(self._MirrorNeighbors())
+        else:
+            return(self.neighbors)
+
+    @property
+    def ND(self):
+        """accessor for neighborhood density DataFrame
+
+        Returns:
+            DataFrame: the input DataFrame, with an additional column appended
+                containing the neighborhood density count for each item
+        """
+        return(self.nd)
+
     def _MatchFeature(self, i, j, feature):
         """Check whether items match on a given feature
 
@@ -104,19 +124,6 @@ class Neighbors(object):
         result = pd.concat([self.neighbors, fd])
         result = result.sort_values(by=['target', 'neighbor'])
         return(result)
-
-    @property
-    def Neighbors(self, mirror_neighbors=True):
-        """accessor for neighbors DataFrame"""
-        if mirror_neighbors:
-            return(self._MirrorNeighbors())
-        else:
-            return(self.neighbors)
-
-    @property
-    def ND(self):
-        """accessor for neighborhood density DataFrame"""
-        return(self.nd)
 
     def _FormatHMS(self, s):
         """formats a duration in seconds into `H:MM:SS.ms`
