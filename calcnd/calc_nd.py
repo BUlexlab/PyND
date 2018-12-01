@@ -1,6 +1,7 @@
 import pandas as pd
 import logging
 import os
+import plac
 
 import neighborhood_density_calc as ndc
 
@@ -16,31 +17,55 @@ logger.handlers = []
 logger.addHandler(ch)
 
 
-def main(features: ('a character vector containing the column names'
-                     + ' in "data" over which to calculate neighborhood'
-                    + ' densities', 'positional'),
-         input: ('path to the input .csv file', 'positional'),
-         outputdir: ('directory into which to place results files',
-                     'option') = "~/Documents",
-         outputname: ('base name for results .csv files; files will be named'
-                      + ' [outputname]-neighbors.csv and [outputname]-nd.csv',
-                      'option') = 'result',
-         allowedmisses: ('an integer indicating how many features'
-                         + ' are allowed to differ between the target word and the'
-                         + ' candidate word while still considering the candidate a'
-                         + ' neighbor', 'option', None, int) = 0,
-         allowedmatches: ('(default:length(features)) an integer indicating the'
-                          + ' maximum number of features that are allowed to'
-                          + ' match between the target word and the candidate'
-                          + ' word while still considering the candidate a neighbor',
-                          'option', None, int) = None,
-         deduplicated: ('do not duplicate target/neighbor pairs  A->B B->A',
-                        'flag') = False,
-         sample: ('if supplied, length of a random subsample of the input dataframe'
-                  + ' (to speed things up for testing purposes)', 'option',
-                  None, int) = None
-         
-         ):
+@plac.annotations(
+    features=('a character vector containing the column names'
+              ' in "data" over which to calculate neighborhood'
+              ' densities', 'positional'),
+    input=('path to the input .csv file', 'positional'),
+    outputdir=('directory into which to place results files', 'option'),
+    outputname=('base name for results .csv files; files will be named'
+                ' [outputname]-neighbors.csv and [outputname]-nd.csv',
+                'option'),
+    allowedmisses=('an integer indicating how many features'
+                   ' are allowed to differ between the target word and the'
+                   ' candidate word while still considering the candidate a'
+                   ' neighbor', 'option', None, int),
+    allowedmatches=('(default:length(features)) an integer indicating the'
+                    ' maximum number of features that are allowed to'
+                    ' match between the target word and the candidate'
+                    ' word while still considering the candidate a neighbor',
+                    'option', None, int),
+    deduplicated=('do not duplicate target/neighbor pairs  A->B B->A', 'flag'),
+    sample=('if supplied, length of a random subsample of the input dataframe'
+            ' (to speed things up for testing purposes)', 'option',
+            None, int))
+def main(features, input, outputdir="~/Documents", outputname='result',
+         allowedmisses=0, allowedmatches=None, deduplicated=False,
+         sample=None):
+    """Calculates minimal pair neighbors and saves results as csv files
+
+    A convenience wrapper to :py:func:`calcnd.neighborhood_density_calc.MinimalPairND`
+
+    Args:
+        features (list of str): a character vector containing the column names
+            in "data" over which to calculate neighborhood densities
+        input (str): path to the input .csv file
+        outputdir (str): directory into which to write results .csv files.
+            Will be created if it does not exist.
+        outputname (str): base name for results .csv files; files will be
+            named [outputname]-neighbors.csv and [outputname]-nd.csv
+        allowedmisses (int): an integer indicating how many features
+            are allowed to differ between the target word and the candidate
+            word while still considering the candidate a neighbor
+        allowedmatches (int): (default:length(features)) an integer indicating
+            the maximum number of features that are allowed to match between
+            the target word and the candidate word while still considering
+            the candidate a neighbor
+        deduplicated (bool): do not duplicate target/neighbor pairs  A->B B->A
+        sample (int): if supplied, length of a random subsample of the input
+            dataframe (to speed things up for testing purposes)
+    
+    """
     features = list(features)
     if not allowedmatches:
         allowedmatches = len(features)

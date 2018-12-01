@@ -40,12 +40,15 @@ def MinimalPairND(data, features, allowed_misses=0, allowed_matches=None,
             will appear only once in neighbors
 
     Returns:
-        dict containing elements:
-        nd (pandas.DataFrame: the input DataFrame with an additional column,
+        dict:
+
+        :nd (pandas.DataFrame):
+            the input DataFrame with an additional column,
             'Neighborhood Density', the computed neighborhood density
             for each row in the input dataframe
 
-        neighbors (pandas.DataFrame): a data.frame containing the found
+        :neighbors (pandas.DataFrame):
+            a data.frame containing the found
             neighbors (data frame has four columns, "target", "neighbor",
             "num.matched.features", and "matched.features")
 
@@ -84,7 +87,6 @@ def MinimalPairND(data, features, allowed_misses=0, allowed_matches=None,
     it_start_time = time.monotonic()
     it_start_iter = 0
     for i in range(0, len(data.index)):
-        num_neighbors = 0
         msg = 'starting word {} of {}, "{}"'
         msg = msg.format(i+1, len(data.index),
                          data.iloc[i, data.columns.get_loc("Code")])
@@ -133,7 +135,7 @@ def MinimalPairND(data, features, allowed_misses=0, allowed_matches=None,
                 # put the candidate word into the list of neighbors
                 for k in range(0, len(features)):
                     if (pd.notna(data.iloc[i, data.columns.get_loc(features[k])]) and
-                        pd.notna(data.iloc[j, data.columns.get_loc(features[k])])):
+                            pd.notna(data.iloc[j, data.columns.get_loc(features[k])])):
                         if (data.iloc[i, data.columns.get_loc(features[k])] ==
                                 data.iloc[j, data.columns.get_loc(features[k])]):
                             msg = "Matched {source} to {target} on feature {feature}"
@@ -202,7 +204,7 @@ def mirrorNeighbors(df):
         df (pandas.DataFrame): a neighbors DataFrame from MinimalPairND()
 
     Returns:
-        A pandas.DataFrame with twice as many rows as the input df, 
+        A pandas.DataFrame with twice as many rows as the input df,
         sorted by target, then neighbor
     """
     fd = df.copy()
@@ -216,7 +218,13 @@ def mirrorNeighbors(df):
 
 
 def formatHMS(s):
-    """formats a duration in seconds into H:MM:SS.ms
+    """formats a duration in seconds into `H:MM:SS.ms`
+
+    Args:
+        s (float): time in seconds
+
+    Returns:
+        string
     """
     hours, remainder = divmod(s, 60**2)
     minutes, seconds = divmod(remainder, 60)
