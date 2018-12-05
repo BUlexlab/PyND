@@ -36,6 +36,14 @@ def test_matches_less_than_zero():
         my_nbr = Neighbors(data, FEATURES, allowed_misses=1, allowed_matches=-1)
     assert "allowed_matches must be greater than 1" in str(exc.value)
 
+def test_missing_key():
+    data = pd.read_csv(os.path.join(THIS_DIR, "test_data", "input.csv"))
+    with pytest.raises(ValueError) as exc:
+        my_nbr = Neighbors(data, FEATURES, allowed_misses=1, allowed_matches=None,
+                           key="FooBar")
+    assert "Key FooBar is not a column in DataFrame data" in str(exc.value)
+    
+
 def test_missing_features():
     data = pd.read_csv(os.path.join(THIS_DIR, "test_data", "input.csv"))
     with pytest.raises(ValueError) as exc:

@@ -34,16 +34,23 @@ class Neighbors(object):
             indicating the maximum number of features that are allowed to
             match between the target word and the candidate word while still
             considering the candidate a neighbor
+        key (str): (default: 'Code') a column to use as the key for an item
+            in `data`, e.g. a Sign ID, a gloss, or some other reasonable ID.
     """
-    def __init__(self, data, features, allowed_misses=0, allowed_matches=None):
+    def __init__(self, data, features, allowed_misses=0, allowed_matches=None,
+                 key='Code'):
         self.data = data
         self.features = list(features)
+        self.key = key
 
         missing_features = [
             x for x in self.features if x not in list(self.data.columns.values)]
         if missing_features:
             msg = "Feature(s) {} not in DataFrame data".format(missing_features)
             raise ValueError(msg)
+
+        if key not in list(self.data.columns.values):
+            raise ValueError("Key {} is not a column in DataFrame data".format(key))
 
         self.allowed_misses = allowed_misses
         if self.allowed_misses > len(self.features)-1:
@@ -196,7 +203,7 @@ class Neighbors(object):
         for i in range(0, len(self.data.index)):
             msg = 'starting word {} of {}, "{}"'
             msg = msg.format(i+1, len(self.data.index),
-                             self.data.iloc[i, self.data.columns.get_loc("Code")])
+                             self.data.iloc[i, self.data.columns.get_loc(self.key)])
             if i == 0:
                 logger.info(msg)
             elif (i+1) % 10 == 0:
@@ -234,8 +241,8 @@ class Neighbors(object):
                     # put the candidate word into the list of neighbors
                     for k in range(0, len(self.features)):
                         if self._MatchFeature(i, j, self.features[k]):
-                            source = self.data.iloc[i, self.data.columns.get_loc("Code")],
-                            target = self.data.iloc[j, self.data.columns.get_loc("Code")],
+                            source = self.data.iloc[i, self.data.columns.get_loc(self.key)],
+                            target = self.data.iloc[j, self.data.columns.get_loc(self.key)],
                             feature = self.features[k]
                             msg = "Matched {source} to {target} on feature {feature}"
                             msg = msg.format(source=source, target=target, feature=feature)
@@ -250,8 +257,8 @@ class Neighbors(object):
                     if (matches >= (len(self.features) - self.allowed_misses) and
                             matches <= self.allowed_matches):
                         logger.debug("adding match to neighbors")
-                        nbr_target.append(self.data.iloc[i, self.data.columns.get_loc("Code")])
-                        nbr_neighbor.append(self.data.iloc[j, self.data.columns.get_loc("Code")])
+                        nbr_target.append(self.data.iloc[i, self.data.columns.get_loc(self.key)])
+                        nbr_neighbor.append(self.data.iloc[j, self.data.columns.get_loc(self.key)])
                         nbr_num_match_features.append(matches)
                         nbr_match_features.append(matched_features)
                         logger.debug("incrementing neighborhood density"
