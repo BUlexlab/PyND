@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import tempfile
 
-from calcnd.neighborhood_density_calc_EntryID import MinimalPairND
+from pynd.neighborhood_density_calc_EntryID import MinimalPairND
 
 THIS_DIR = os.path.join(
     os.path.dirname(os.path.realpath(__file__))

@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-package = 'calcnd'
+package = 'pynd'
 version = '0.1dev'
 
 setup(name=package,

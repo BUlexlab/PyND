@@ -14,14 +14,14 @@
 #
 import os
 import sys
-# sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../'))
-sys.path.insert(0, os.path.abspath('../calcnd/'))
+sys.path.insert(0, os.path.abspath('../pynd/'))
 
 
 # -- Project information -----------------------------------------------------
 
-project = 'calcnd'
+project = 'pynd'
 copyright = '2018, Michael Caselli'
 author = 'Michael Caselli'
 
@@ -42,7 +42,6 @@ release = '0.0.0.9000'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.napoleon',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -105,7 +104,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'calcnddoc'
+htmlhelp_basename = 'pynddoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -132,7 +131,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'calcnd.tex', 'calcnd Documentation',
+    (master_doc, 'pynd.tex', 'pynd Documentation',
      'Michael Caselli', 'manual'),
 ]
 
@@ -142,7 +141,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'calcnd', 'calcnd Documentation',
+    (master_doc, 'pynd', 'pynd Documentation',
      [author], 1)
 ]
 
@@ -153,8 +152,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'calcnd', 'calcnd Documentation',
-     author, 'calcnd', 'One line description of project.',
+    (master_doc, 'pynd', 'pynd Documentation',
+     author, 'pynd', 'One line description of project.',
      'Miscellaneous'),
 ]
 

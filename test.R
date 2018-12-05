@@ -1,7 +1,7 @@
 library("reticulate")
 library(dplyr)
 use_virtualenv("naomi")
-cnd <- import("calcnd")
+cnd <- import("pynd")
 ## nd <- import("calcnd.neighborhood_density_calc")
 
 a <- read.csv("~/naomi/data/signdata (33).csv")
@@ -20,7 +20,7 @@ features <- c("SignType.2.0",
 ## out <- nd$MinimalPairND(sample_n(a, 100), features)
 ## out$WriteCSVSs("./output/", "foo")
 
-nbr <- import("calcnd.neighbors")
+nbr <- import("pynd.neighbors")
 my.nbrs <- nbr$Neighbors(sample_n(a, 100), features)
 my.nbrs$WriteCSVs("./output", "foo")
 

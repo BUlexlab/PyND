@@ -3,7 +3,7 @@ import pandas as pd
 import tempfile
 import pytest
 
-from calcnd.neighbors import Neighbors
+from pynd.neighbors import Neighbors
 
 THIS_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)))
 

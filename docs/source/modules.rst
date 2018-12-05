@@ -1,7 +1,7 @@
-calcnd
-======
+pynd
+====
 
 .. toctree::
    :maxdepth: 4
 
-   calcnd
+   pynd

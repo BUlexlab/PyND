@@ -44,7 +44,7 @@ def main(features, input, outputdir="~/Documents", outputname='result',
          sample=None):
     """Calculates minimal pair neighbors and saves results as csv files
 
-    A convenience wrapper to :py:func:`calcnd.neighborhood_density_calc.MinimalPairND`
+    A convenience wrapper to :py:func:`pynd.neighborhood_density_calc.MinimalPairND`
 
     Args:
         features (list of str): a character vector containing the column names

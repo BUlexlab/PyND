@@ -1,10 +1,10 @@
-.. calcnd documentation master file, created by
-   sphinx-quickstart on Thu Nov 29 17:46:12 2018.
+.. pynd documentation master file, created by
+   sphinx-quickstart on Tue Dec  4 23:09:31 2018.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to calcnd's documentation!
-==================================
+Welcome to pynd's documentation!
+================================
 
 .. toctree::
    :maxdepth: 2

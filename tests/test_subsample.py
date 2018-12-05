@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import tempfile
 
-from calcnd.utils import subsample
+from pynd.utils import subsample
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 
