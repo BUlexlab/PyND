@@ -66,16 +66,20 @@ class Neighbors(object):
 
         self.nd, self.neighbors = self._Compute()
 
-    def WriteCSVs(self, outputdir, basename):
+    def WriteCSVs(self, outputdir, basename, mirror_neighbors=True):
         """Writes neighborhood density and neighbors to CSV files
 
         If `outputdir` does not exist, it will be created.
 
         Args:
             outputdir (str): path into which to write CSV files
-            basename (str): base name for results .csv files; files
-                will be named [basename]-neighbors.csv and
-                [basename]-nd.csv
+            basename (str): base name for results .csv files; files will be
+                named [basename]-neighbors.csv and [basename]-nd.csv
+            mirror_neighbors (bool): (default: True) If True, Mirror the neighbors
+                DataFrame such that every A-B pair appears as both
+                A(target)-B(neighbor) and B(target)-A(neighbor). If False, the pair
+                will appear only once in neighbors
+
         """
 
         if not os.path.isdir(os.path.abspath(outputdir)):
@@ -83,7 +87,12 @@ class Neighbors(object):
 
         neighbor_out_path = os.path.join(os.path.abspath(outputdir),
                                          basename + "-neighbors.csv")
-        self.neighbors.to_csv(neighbor_out_path, na_rep='', index=False)
+        if mirror_neighbors:
+            logger.debug("mirroring neighbors to write CSV")
+            self._MirrorNeighbors().to_csv(neighbor_out_path, na_rep='NA', index=False)
+        else:
+            logger.debug("not mirroring neighbors to write CSV")
+            self.neighbors.to_csv(neighbor_out_path, na_rep='NA', index=False)
         logger.info("Wrote file %s" % neighbor_out_path)
 
         nd_out_path = os.path.join(os.path.abspath(outputdir),
