@@ -25,6 +25,7 @@ features = ["SignType 2.0",
             "Spread",
             "SpreadChange"]
 
-cnd.main(input=input, outputdir=outputdir, outputname=outputname,
-         allowedmisses=allowed_misses, allowedmatches=allowed_matches,
-         deduplicated=not mirror_neighbors, features=features)
+if __name__ == "__main__":
+    cnd.main(input=input, outputdir=outputdir, outputname=outputname,
+             allowedmisses=allowed_misses, allowedmatches=allowed_matches,
+             deduplicated=not mirror_neighbors, features=features)
