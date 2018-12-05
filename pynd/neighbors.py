@@ -22,15 +22,15 @@ class Neighbors(object):
 
     Args:
         data (pandas.DataFrame): a dataframe containing a column
-            called Code, and columns with names matching the elements of
-            'features'
+            called `key`, and columns with names matching the elements of
+            `features`
         features (list of str): a character vector containing the column names in
-             "data" over which to calculate neighborhood densities
+             `data` over which to calculate neighborhood densities
         allowed_misses (int): an integer indicating how many features
              are allowed to differ between the target word and the
              candidate word while still considering the candidate a
              neighbor
-        allowed_matches (int): (default:length(features)) an integer
+        allowed_matches (int): (default:`length(features)`) an integer
             indicating the maximum number of features that are allowed to
             match between the target word and the candidate word while still
             considering the candidate a neighbor
@@ -69,7 +69,7 @@ class Neighbors(object):
     def WriteCSVs(self, outputdir, basename):
         """Writes neighborhood density and neighbors to CSV files
 
-        if `outputdir` does not exist, it will be created.
+        If `outputdir` does not exist, it will be created.
 
         Args:
             outputdir (str): path into which to write CSV files
@@ -93,7 +93,7 @@ class Neighbors(object):
 
     @property
     def Neighbors(self, mirror_neighbors=True):
-        """accessor for neighbors DataFrame
+        """Accessor for neighbors DataFrame
 
         """
         if mirror_neighbors:
@@ -103,11 +103,11 @@ class Neighbors(object):
 
     @property
     def ND(self):
-        """accessor for neighborhood density DataFrame
+        """Accessor for neighborhood density DataFrame
 
         Returns:
             DataFrame: the input DataFrame, with an additional column appended
-                containing the neighborhood density count for each item
+            containing the neighborhood density count for each item
         """
         return(self.nd)
 
