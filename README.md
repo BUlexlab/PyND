@@ -34,8 +34,9 @@ then check that the installation was successful by running `pipenv --version`
 5. From the root directory of the repository, create a virtual environment with `pipenv`
     ```sh
     $ cd PyND
-    $ pipenv shell
+    $ pipenv install
     ```
+    Note: to support automated unit tests with `pytest` run instead `pipenv install --dev`
 6. Install the [R](https://www.r-project.org/) package 
 [reticulate](https://cran.r-project.org/web/packages/reticulate/index.html), which allows 
 you to run python from within an R session and pass objects back and forth between the two.
