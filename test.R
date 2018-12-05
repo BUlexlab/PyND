@@ -1,6 +1,6 @@
 library("reticulate")
 library(dplyr)
-use_virtualenv("naomi")
+# use_virtualenv("naomi")
 cnd <- import("pynd")
 ## nd <- import("calcnd.neighborhood_density_calc")
 
