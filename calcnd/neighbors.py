@@ -1,5 +1,6 @@
-import pandas as pd
 import logging
+import os
+import pandas as pd
 import time
 
 logger = logging.getLogger(__name__)
@@ -65,10 +66,35 @@ class Neighbors(object):
 
         self.nd, self.neighbors = self._Compute()
 
+    def WriteCSVs(self, outputdir, basename):
+        """Writes neighborhood density and neighbors to CSV files
+
+        if `outputdir` does not exist, it will be created.
+
+        Args:
+            outputdir (str): path into which to write CSV files
+            basename (str): base name for results .csv files; files
+                will be named [basename]-neighbors.csv and
+                [basename]-nd.csv
+        """
+
+        if not os.path.isdir(os.path.abspath(outputdir)):
+            os.mkdir(os.path.abspath(outputdir))
+
+        neighbor_out_path = os.path.join(os.path.abspath(outputdir),
+                                         basename + "-neighbors.csv")
+        self.neighbors.to_csv(neighbor_out_path, na_rep='', index=False)
+        logger.info("Wrote file %s" % neighbor_out_path)
+
+        nd_out_path = os.path.join(os.path.abspath(outputdir),
+                                   basename + "-nd.csv")
+        self.nd.to_csv(nd_out_path, na_rep='', index=False)
+        logger.info("wrote file %s" % nd_out_path)
+
     @property
     def Neighbors(self, mirror_neighbors=True):
         """accessor for neighbors DataFrame
-        
+
         """
         if mirror_neighbors:
             return(self._MirrorNeighbors())
