@@ -89,10 +89,10 @@ class Neighbors(object):
 
         """
 
-        if not os.path.isdir(os.path.abspath(outputdir)):
-            os.mkdir(os.path.abspath(outputdir))
+        if not os.path.isdir(os.path.expanduser(outputdir)):
+            os.mkdir(os.path.expanduser(outputdir))
 
-        neighbor_out_path = os.path.join(os.path.abspath(outputdir),
+        neighbor_out_path = os.path.join(os.path.expanduser(outputdir),
                                          basename + "-neighbors.csv")
         if mirror_neighbors:
             logger.debug("mirroring neighbors to write CSV")
@@ -102,7 +102,7 @@ class Neighbors(object):
             self.neighbors.to_csv(neighbor_out_path, na_rep='NA', index=False)
         logger.info("Wrote file %s" % neighbor_out_path)
 
-        nd_out_path = os.path.join(os.path.abspath(outputdir),
+        nd_out_path = os.path.join(os.path.expanduser(outputdir),
                                    basename + "-nd.csv")
         self.nd.to_csv(nd_out_path, na_rep='', index=False)
         logger.info("wrote file %s" % nd_out_path)
