@@ -1,0 +1,101 @@
+target,neighbor,num_matched_features,matched_features,num_missed_features,missed_features
+A_01_029,B_02_012,1,MajorLocation 2.0,1,MinorLocation 2.0
+A_01_029,D_01_031,1,MajorLocation 2.0,1,MinorLocation 2.0
+A_01_029,F_02_78,1,MajorLocation 2.0,1,MinorLocation 2.0
+A_01_029,G_03_11,1,MajorLocation 2.0,1,MinorLocation 2.0
+A_01_029,J_01_005,1,MajorLocation 2.0,1,MinorLocation 2.0
+A_01_060,G_01_48,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+A_01_060,G_02_102,1,MajorLocation 2.0,1,MinorLocation 2.0
+A_01_060,J_02_007,1,MajorLocation 2.0,1,MinorLocation 2.0
+A_02_011,D_02_060,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+A_02_011,D_03_036,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+A_02_011,E_01_13,1,MajorLocation 2.0,1,MinorLocation 2.0
+A_02_011,E_03_56,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+A_02_011,F_01_72,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+A_02_011,F_02_33,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+A_02_011,G_03_26,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+B_02_012,A_01_029,1,MajorLocation 2.0,1,MinorLocation 2.0
+B_02_012,D_01_031,1,MajorLocation 2.0,1,MinorLocation 2.0
+B_02_012,F_02_78,1,MajorLocation 2.0,1,MinorLocation 2.0
+B_02_012,G_03_11,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+B_02_012,J_01_005,1,MajorLocation 2.0,1,MinorLocation 2.0
+D_01_031,A_01_029,1,MajorLocation 2.0,1,MinorLocation 2.0
+D_01_031,B_02_012,1,MajorLocation 2.0,1,MinorLocation 2.0
+D_01_031,F_02_78,1,MajorLocation 2.0,1,MinorLocation 2.0
+D_01_031,G_03_11,1,MajorLocation 2.0,1,MinorLocation 2.0
+D_01_031,J_01_005,1,MajorLocation 2.0,1,MinorLocation 2.0
+D_02_060,A_02_011,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+D_02_060,D_03_036,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+D_02_060,E_01_13,1,MajorLocation 2.0,1,MinorLocation 2.0
+D_02_060,E_03_56,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+D_02_060,F_01_72,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+D_02_060,F_02_33,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+D_02_060,G_03_26,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+D_03_036,A_02_011,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+D_03_036,D_02_060,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+D_03_036,E_01_13,1,MajorLocation 2.0,1,MinorLocation 2.0
+D_03_036,E_03_56,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+D_03_036,F_01_72,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+D_03_036,F_02_33,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+D_03_036,G_03_26,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+E_01_13,A_02_011,1,MajorLocation 2.0,1,MinorLocation 2.0
+E_01_13,D_02_060,1,MajorLocation 2.0,1,MinorLocation 2.0
+E_01_13,D_03_036,1,MajorLocation 2.0,1,MinorLocation 2.0
+E_01_13,E_03_56,1,MajorLocation 2.0,1,MinorLocation 2.0
+E_01_13,F_01_72,1,MajorLocation 2.0,1,MinorLocation 2.0
+E_01_13,F_02_33,1,MajorLocation 2.0,1,MinorLocation 2.0
+E_01_13,G_03_26,1,MajorLocation 2.0,1,MinorLocation 2.0
+E_03_56,A_02_011,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+E_03_56,D_02_060,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+E_03_56,D_03_036,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+E_03_56,E_01_13,1,MajorLocation 2.0,1,MinorLocation 2.0
+E_03_56,F_01_72,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+E_03_56,F_02_33,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+E_03_56,G_03_26,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+F_01_72,A_02_011,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+F_01_72,D_02_060,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+F_01_72,D_03_036,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+F_01_72,E_01_13,1,MajorLocation 2.0,1,MinorLocation 2.0
+F_01_72,E_03_56,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+F_01_72,F_02_33,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+F_01_72,G_03_26,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+F_02_33,A_02_011,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+F_02_33,D_02_060,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+F_02_33,D_03_036,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+F_02_33,E_01_13,1,MajorLocation 2.0,1,MinorLocation 2.0
+F_02_33,E_03_56,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+F_02_33,F_01_72,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+F_02_33,G_03_26,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+F_02_78,A_01_029,1,MajorLocation 2.0,1,MinorLocation 2.0
+F_02_78,B_02_012,1,MajorLocation 2.0,1,MinorLocation 2.0
+F_02_78,D_01_031,1,MajorLocation 2.0,1,MinorLocation 2.0
+F_02_78,G_03_11,1,MajorLocation 2.0,1,MinorLocation 2.0
+F_02_78,J_01_005,1,MajorLocation 2.0,1,MinorLocation 2.0
+G_01_48,A_01_060,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+G_01_48,G_02_102,1,MajorLocation 2.0,1,MinorLocation 2.0
+G_01_48,J_02_007,1,MajorLocation 2.0,1,MinorLocation 2.0
+G_01_64,H_01_1,1,MajorLocation 2.0,1,MinorLocation 2.0
+G_02_102,A_01_060,1,MajorLocation 2.0,1,MinorLocation 2.0
+G_02_102,G_01_48,1,MajorLocation 2.0,1,MinorLocation 2.0
+G_02_102,J_02_007,1,MajorLocation 2.0,1,MinorLocation 2.0
+G_03_11,A_01_029,1,MajorLocation 2.0,1,MinorLocation 2.0
+G_03_11,B_02_012,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+G_03_11,D_01_031,1,MajorLocation 2.0,1,MinorLocation 2.0
+G_03_11,F_02_78,1,MajorLocation 2.0,1,MinorLocation 2.0
+G_03_11,J_01_005,1,MajorLocation 2.0,1,MinorLocation 2.0
+G_03_26,A_02_011,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+G_03_26,D_02_060,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+G_03_26,D_03_036,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+G_03_26,E_01_13,1,MajorLocation 2.0,1,MinorLocation 2.0
+G_03_26,E_03_56,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+G_03_26,F_01_72,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+G_03_26,F_02_33,2,"MajorLocation 2.0, MinorLocation 2.0",0,
+H_01_1,G_01_64,1,MajorLocation 2.0,1,MinorLocation 2.0
+J_01_005,A_01_029,1,MajorLocation 2.0,1,MinorLocation 2.0
+J_01_005,B_02_012,1,MajorLocation 2.0,1,MinorLocation 2.0
+J_01_005,D_01_031,1,MajorLocation 2.0,1,MinorLocation 2.0
+J_01_005,F_02_78,1,MajorLocation 2.0,1,MinorLocation 2.0
+J_01_005,G_03_11,1,MajorLocation 2.0,1,MinorLocation 2.0
+J_02_007,A_01_060,1,MajorLocation 2.0,1,MinorLocation 2.0
+J_02_007,G_01_48,1,MajorLocation 2.0,1,MinorLocation 2.0
+J_02_007,G_02_102,1,MajorLocation 2.0,1,MinorLocation 2.0

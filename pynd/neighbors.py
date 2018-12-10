@@ -130,19 +130,48 @@ class Neighbors(object):
     def _MatchFeature(self, i, j, feature):
         """Check whether items match on a given feature
 
+        features are a match iff they both have values (i.e. they are
+        both not NA) and their values are logically equal
+
+        if both features are NA, this function returns `None`,
+        i.e. they are neither a match nor a miss
+
         Args:
             i, j (int): indices of items to evaluate
             feature (str): feature on which to evaluate match
 
         Returns:
-           bool `True` if match is found, `False` otherwise
+           str 'match' if a match is found, 'miss' if a miss is found,
+           `None` otherwise
+
         """
-        result = False
-        if ((pd.notna(self.data.iloc[i, self.data.columns.get_loc(feature)]) and
-             pd.notna(self.data.iloc[j, self.data.columns.get_loc(feature)])) and
-            (self.data.iloc[i, self.data.columns.get_loc(feature)] ==
-             self.data.iloc[j, self.data.columns.get_loc(feature)])):
-            result = True
+        if (pd.isna(self.data.iloc[i, self.data.columns.get_loc(feature)]) and
+                pd.isna(self.data.iloc[j, self.data.columns.get_loc(feature)])):
+            msg = "{} and {} are both NA on feature {}"
+            msg = msg.format(
+                self.data.iloc[i, self.data.columns.get_loc(self.key)],
+                self.data.iloc[j, self.data.columns.get_loc(self.key)],
+                feature)
+            logger.debug(msg)
+            return(None)
+        elif ((pd.notna(self.data.iloc[i, self.data.columns.get_loc(feature)]) and
+               pd.notna(self.data.iloc[j, self.data.columns.get_loc(feature)])) and
+              (self.data.iloc[i, self.data.columns.get_loc(feature)] ==
+               self.data.iloc[j, self.data.columns.get_loc(feature)])):
+            result = 'match'
+        else:
+            result = 'miss'
+
+        msg = "{} and {} are a {} on feature {}, ({}, {})."
+        msg = msg.format(
+            self.data.iloc[i, self.data.columns.get_loc(self.key)],
+            self.data.iloc[j, self.data.columns.get_loc(self.key)],
+            result,
+            feature,
+            self.data.iloc[i, self.data.columns.get_loc(feature)],
+            self.data.iloc[j, self.data.columns.get_loc(feature)],
+        )
+        logger.debug(msg)
         return(result)
 
     def _MirrorNeighbors(self):
@@ -183,10 +212,26 @@ class Neighbors(object):
     def _Compute(self):
         """compute neighborhood density
 
+        TODO: redefine logic according to the following:
+
+        If two signs are "NA" on a given feature, this does not count
+        as a "match", neither does it count as a "miss".
+
+        If one signs is "NA" on a feature, while the other sign has a
+        value for that feature, this counts as a "miss"
+
+        also want to output the list of missed features (only for
+        signs that meet the definition of neighbors
+
+        Also include in the neighbors dataframe the number of matched
+        features and the number of mis-matched features
+        (i.e. len(matches) and len(misses))
+
         Returns:
           (DataFrame): database of items with additional column for computed
             neighborhood density
           (DataFrame): pairs of neighbors
+
         """
         start_time = time.monotonic()
 
@@ -194,6 +239,8 @@ class Neighbors(object):
         nbr_neighbor = []
         nbr_num_match_features = []
         nbr_match_features = []
+        nbr_num_missed_features = []
+        nbr_missed_features = []
         out_df = self.data.copy()
         nd = [0] * len(self.data.index)
 
@@ -232,15 +279,17 @@ class Neighbors(object):
             # for j in range(0, len(self.data.index)):
             for j in range(i, len(self.data.index)):
                 if (i != j):  # TODO: change starting index to i+1 and remove this conditional
-                    matches = 0
-                    matched_features = ""
+                    matches, misses = (0, 0)
+                    matched_features, missed_features = ("", "")
+
                     # third-level loop will step through features,
                     # counting the number of features of the candidate
                     # word that match the source word. If the matches
                     # equal or exceed (len(features) - allowed_misses),
                     # put the candidate word into the list of neighbors
                     for k in range(0, len(self.features)):
-                        if self._MatchFeature(i, j, self.features[k]):
+                        match_result = self._MatchFeature(i, j, self.features[k])
+                        if match_result == 'match':
                             source = self.data.iloc[i, self.data.columns.get_loc(self.key)],
                             target = self.data.iloc[j, self.data.columns.get_loc(self.key)],
                             feature = self.features[k]
@@ -253,14 +302,28 @@ class Neighbors(object):
                             else:
                                 matched_features = ", ".join([matched_features,
                                                               self.features[k]])
-
-                    if (matches >= (len(self.features) - self.allowed_misses) and
-                            matches <= self.allowed_matches):
+                        elif match_result == 'miss':
+                            source = self.data.iloc[i, self.data.columns.get_loc(self.key)],
+                            target = self.data.iloc[j, self.data.columns.get_loc(self.key)],
+                            feature = self.features[k]
+                            msg = "missed: {source} to {target} on feature {feature}"
+                            msg = msg.format(source=source, target=target, feature=feature)
+                            logger.debug(msg)
+                            misses = misses + 1
+                            if missed_features == "":
+                                missed_features = self.features[k]
+                            else:
+                                missed_features = ", ".join([missed_features,
+                                                             self.features[k]])
+                    # TODO: This conditional will need to chage
+                    if ((misses <= self.allowed_misses) and (matches >= 1)):
                         logger.debug("adding match to neighbors")
                         nbr_target.append(self.data.iloc[i, self.data.columns.get_loc(self.key)])
                         nbr_neighbor.append(self.data.iloc[j, self.data.columns.get_loc(self.key)])
                         nbr_num_match_features.append(matches)
                         nbr_match_features.append(matched_features)
+                        nbr_num_missed_features.append(misses)
+                        nbr_missed_features.append(missed_features)
                         logger.debug("incrementing neighborhood density"
                                      + "for both members of the pair")
                         nd[i] += 1
@@ -270,7 +333,9 @@ class Neighbors(object):
         data_dict = {'target': nbr_target,
                      'neighbor': nbr_neighbor,
                      'num_matched_features': nbr_num_match_features,
-                     'matched_features': nbr_match_features}
+                     'matched_features': nbr_match_features,
+                     'num_missed_features': nbr_num_missed_features,
+                     'missed_features': nbr_missed_features}
 
         neighbors = pd.DataFrame(data_dict)
         elapsed_time = time.monotonic() - start_time
