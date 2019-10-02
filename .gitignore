@@ -1,7 +1,9 @@
+venv
 tests/test_output/
 output/
 __pycache__/
 calcnd.egg-info/
+*.py[cod]
 
 # emacs
 *~
@@ -9,3 +11,6 @@ calcnd.egg-info/
 .\#*
 docs/_build/
 pynd.egg-info/
+
+# R
+*.Rapp.history
