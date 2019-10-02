@@ -9,5 +9,10 @@ setup(name=package,
       install_requires=[
           'pandas',
       ],
+      extras_require={
+        'dev': [
+            'pytest',
+        ]
+      },
       description="Calculate sign neighborhood density",
       url='url')
